@@ -68,11 +68,13 @@ if client:
                 model=st.session_state["cohere_model"], 
                 chat_history=st.session_state.chat_history,
                 message=prompt, 
-                stream=True,
+                # stream=True,
                 temperature=temperature
             )
             num_chunks_streamed = 0; t0 = datetime.now()
-            for response in client.chat(**api_params):
+
+            # for response in client.chat(**api_params):
+            for response in client.chat_stream(**api_params):
                 if response.event_type == 'stream-start':
                     continue
                 elif response.event_type == 'stream-end':

@@ -72,8 +72,8 @@ if client:
         message_payload = [ChatMessage(role=SYSTEM_ROLE, content=system_msg)] + st.session_state.mistral_messages
 
         # track token count
-        n_prompt_tokens = num_tokens_from_prompt(message_payload, st.session_state["mistral_model"])
-        st.session_state["mistral_prompt_tokens"] += n_prompt_tokens
+        # n_prompt_tokens = num_tokens_from_prompt(message_payload, st.session_state["mistral_model"])
+        # st.session_state["mistral_prompt_tokens"] += n_prompt_tokens
         
         # chat iteration
         with st.chat_message(name=LM_ROLE, avatar=get_icon(LM_ROLE)):
@@ -100,24 +100,24 @@ if client:
         st.session_state.mistral_messages.append(ChatMessage(role=LM_ROLE, content=full_response))
 
         # track token count
-        n_response_tokens = num_tokens_from_string(full_response, st.session_state["mistral_model"])
-        st.session_state["mistral_response_tokens"] += n_response_tokens
+        # n_response_tokens = num_tokens_from_string(full_response, st.session_state["mistral_model"])
+        # st.session_state["mistral_response_tokens"] += n_response_tokens
 
-        data_instance = DataInstance(
-            time = t0,
-            provider = PROVIDER,
-            api_id = st.session_state["mistral_model"],
-            prompt = prompt,
-            response = full_response,
-            estimated_input_tokens = n_prompt_tokens,
-            estimated_output_tokens = n_response_tokens,
-            estimated_input_cost = st.session_state['prompt_cost'] * n_prompt_tokens / MISTRAL_TOKENS_PRICING_UNIT,
-            estimated_output_cost = st.session_state['response_cost'] * n_response_tokens / MISTRAL_TOKENS_PRICING_UNIT,
-            generation_time = (tf - t0).total_seconds(),
-            num_chunks_streamed = num_chunks_streamed,
-            system_fingerprint = None
-        )
-        update_data_store(data_instance)
+        # data_instance = DataInstance(
+        #     time = t0,
+        #     provider = PROVIDER,
+        #     api_id = st.session_state["mistral_model"],
+        #     prompt = prompt,
+        #     response = full_response,
+        #     estimated_input_tokens = n_prompt_tokens,
+        #     estimated_output_tokens = n_response_tokens,
+        #     estimated_input_cost = st.session_state['prompt_cost'] * n_prompt_tokens / MISTRAL_TOKENS_PRICING_UNIT,
+        #     estimated_output_cost = st.session_state['response_cost'] * n_response_tokens / MISTRAL_TOKENS_PRICING_UNIT,
+        #     generation_time = (tf - t0).total_seconds(),
+        #     num_chunks_streamed = num_chunks_streamed,
+        #     system_fingerprint = None
+        # )
+        # update_data_store(data_instance)
 
 with st.sidebar:
     show_session_cost_stats(tokens_pricing_unit=MISTRAL_TOKENS_PRICING_UNIT, prompt_tokens=st.session_state["mistral_prompt_tokens"], response_tokens=st.session_state["mistral_response_tokens"])
