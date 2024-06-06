@@ -1,0 +1,24 @@
+name: llm-typewriter
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip=23.3.2
+  - ipykernel=6.28.0
+  - python-dotenv=1.0.0
+  - pandas=2.1.4
+  - pydantic=2.5.3
+  - tokenizers=0.15.0
+  - transformers=4.36.2
+  - pip:
+    - langchain==0.0.352
+    - openai==0.28.1
+    - streamlit==1.29.0
+    - tiktoken==0.5.2
+    - cohere==4.39
+    - sentencepiece==0.1.99
+    - mistralai==0.0.9
+    - BeautifulSoup4==4.12.2
+    - plotly-express==0.4.1
+    - currencyconverter==0.17.14
